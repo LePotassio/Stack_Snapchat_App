@@ -9,8 +9,13 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@snapchat/snap-kit-react-native": "^0.4.0",
     "expo": "~48.0.5",
+    "expo-application": "~5.1.1",
+    "expo-cli": "^6.3.2",
+    "expo-dev-client": "~2.1.5",
     "expo-status-bar": "~1.4.4",
+    "g": "^2.0.1",
     "react": "18.2.0",
     "react-native": "0.71.3"
   },
