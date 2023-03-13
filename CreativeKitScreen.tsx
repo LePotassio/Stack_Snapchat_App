@@ -1,18 +1,7 @@
 import { CreativeKit, LoginKit } from '@snapchat/snap-kit-react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Dimensions, Button, TouchableOpacity, Alert } from 'react-native';
-
-import exampleImage from './assets/Photos/Soup.jpg'
-const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
-
-import RNFetchBlob from 'rn-fetch-blob';
-/*
-import CreativeKitScreen from './CreativeKitScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
-const Tab = createBottomTabNavigator();
-*/
+import React from 'react';
 
 /*
 Eric Furukawa
@@ -37,40 +26,18 @@ const isValidHttpUrl = (url) => {
   return url.startsWith('https:') || url.startsWith('http:');
 };
 
-export default function App() {
+export default function CreativeKitScreen() {
   const sharePicture = (url) => {
     //LoginKit.login();
     CreativeKit.sharePhoto({
       content: {
-        uri: url,
+        uri: 'file:///C:/Users/furuk/Documents/React_Project/ExpoProject/assets/Photos/Soup.jpg',
       },
-      sticker: {
-        uri: url,
-        width: 300,
-        height: 300,
-        posX: 0.5,
-        posY: 0.6,
-        rotationDegreesInClockwise: 0,
-        isAnimated: false,
-     },
-      caption: "This is an example caption",
+      caption: "caption string",
     })
     /*.catch((error) => {
       Alert.alert(error);
     })*/;
-  };
-
-  const sharePictureCheck = (url) => {
-    if (isValidHttpUrl(url)) {
-      RNFetchBlob.config({
-        fileCache: true,
-      })
-      .fetch('GET', url)
-      .then((res) => {
-        //doAlert(res.data);
-        sharePicture(`file://${res.data}`);
-      });
-    }
   };
 
   const doAlert = (alert) => {
@@ -80,65 +47,44 @@ export default function App() {
   // file:///C:/Users/furuk/Documents/React_Project/ExpoProject/assets/Photos/Soup.jpg
 
   return (
-    /*
-    <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="CreativeKitScreen" component={CreativeKitScreen} options={{ headerShown: false, tabBarStyle: { display: "none" } }} />
-    </Tab.Navigator>
-  </NavigationContainer>
-  */
-    
     <SafeAreaView style={styles.safeArea}>
       <Text style={styles.titleText}>Snapchat Application</Text>
       <ScrollView ref={(scrollView) => {this.scrollView=scrollView}} style={styles.scrollView} horizontal={true} decelerationRate={0} snapToInterval={width-50} snapToAlignment={"center"} contentInset={{top: -50, left:30, bottom: -50, right: 30}}>
         <View style={styles.box}>
-          <Image style={styles.images} source={{uri: 'https://drive.google.com/uc?export=view&id=1E6Un4ZLSfvUedhPGR0h_EzGzLmL-RnlW'}}></Image>
+          <Image style={styles.images} source={{uri: 'https://i.imgur.com/tkDnkwb.jpg'}}></Image>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://drive.google.com/uc?export=view&id=1E6Un4ZLSfvUedhPGR0h_EzGzLmL-RnlW');
+            sharePicture('https://i.imgur.com/tkDnkwb.jpg'); 
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
-          <TouchableOpacity style={styles.button} onPress={() =>
-          { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
-          }}>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
-          <TouchableOpacity style={styles.button} onPress={() =>
-          { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
-          }}>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
-          <TouchableOpacity style={styles.button} onPress={() =>
-          { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
-          }}>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
-          <TouchableOpacity style={styles.button} onPress={() =>
-          { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
-          }}>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
-    
   );
 }
 
@@ -153,7 +99,6 @@ const styles = StyleSheet.create({
   },*/
   safeArea: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight,
     backgroundColor: '#000000',
   },
   scrollView: {
@@ -174,7 +119,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   box: {
-    marginTop: 140,
+    marginTop: 100,
     backgroundColor: '#3C4E7A',
     width: width - 80,
     margin: 15,
@@ -194,7 +139,6 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderRadius: 1,
     alignSelf: 'center',
-    borderRadius: 30,
   },
   buttonText: {
     fontSize: 30,

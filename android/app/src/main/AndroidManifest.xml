@@ -14,10 +14,10 @@
   </queries>
   <application android:name=".MainApplication" android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round" android:allowBackup="true" android:theme="@style/AppTheme" android:usesCleartextTraffic="true">
     <meta-data android:name="com.snapchat.kit.sdk.clientId" android:value="27cc566a-ff30-40eb-a2d2-02df45285ab4"/>
-    <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="https:********"/>
+    <meta-data android:name="com.snapchat.kit.sdk.redirectUrl" android:value="expoproject://snap-kit/oauth2"/>
     <meta-data android:name="com.snapchat.kit.sdk.scopes" android:resource="@array/snap_connect_scopes"/>
     <provider
-      android:authorities="${applicationId}.fileprovider"
+      android:authorities="com.furukawae.ExpoProject.fileprovider"
       android:name="androidx.core.content.FileProvider"
       android:exported="false"
       android:grantUriPermissions="true">
