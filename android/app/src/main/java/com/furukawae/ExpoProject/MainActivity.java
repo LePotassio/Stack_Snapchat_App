@@ -9,7 +9,7 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import expo.modules.ReactActivityDelegateWrapper;
-import com.expoproject.BuildConfig;
+import com.furukawae.ExpoProject.BuildConfig;
 import android.R;
 
 

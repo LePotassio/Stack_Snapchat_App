@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.expoproject"
+    namespace "com.furukawae.ExpoProject"
     defaultConfig {
         applicationId 'com.furukawae.ExpoProject'
         minSdkVersion rootProject.ext.minSdkVersion
@@ -190,6 +190,11 @@ android {
 }
 
 dependencies {
+    implementation([
+            'com.snapchat.kit.sdk:login:0.4.0',
+            'com.snapchat.kit.sdk:core:0.4.0'
+    ])
+
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 

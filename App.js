@@ -1,4 +1,4 @@
-import { CreativeKit } from '@snapchat/snap-kit-react-native';
+import { CreativeKit, LoginKit } from '@snapchat/snap-kit-react-native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Dimensions, Button, TouchableOpacity, Alert } from 'react-native';
 
@@ -16,13 +16,14 @@ const { width } = Dimensions.get('window');
 
 export default function App() {
   const sharePicture = (url) => {
+    //LoginKit.login();
     CreativeKit.sharePhoto({
       content: {
-        uri: 'https://picsum.photos/200',
+        uri: url,
       },
      caption: "caption string",
-    })/*
-    .catch((error) => {
+    })
+    /*.catch((error) => {
       Alert.alert(error);
     })*/;
   };
@@ -36,22 +37,34 @@ export default function App() {
       <Text style={styles.titleText}>Snapchat Application</Text>
       <ScrollView ref={(scrollView) => {this.scrollView=scrollView}} style={styles.scrollView} horizontal={true} decelerationRate={0} snapToInterval={width-50} snapToAlignment={"center"} contentInset={{top: -50, left:30, bottom: -50, right: 30}}>
         <View style={styles.box}>
-          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
-          <TouchableOpacity style={styles.button} onPress={() => { sharePicture(); }}>
+          <Image style={styles.images} source={{uri: 'https://i.imgur.com/tkDnkwb.jpg'}}></Image>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
+            <Text style={styles.buttonText}>Share</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
+            <Text style={styles.buttonText}>Share</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.box}>
           <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
+            <Text style={styles.buttonText}>Share</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.box}>
-          <Image style={styles.images} source={{uri: 'https://picsum.photos/200'}}></Image>
+          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <TouchableOpacity style={styles.button} onPress={() => { sharePicture('https://i.imgur.com/tkDnkwb.jpg'); }}>
+            <Text style={styles.buttonText}>Share</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -94,7 +107,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3C4E7A',
     width: width - 80,
     margin: 15,
-    height: 600,
+    height: 500,
     borderRadius: 40,
     justifyContent: 'center',
     overflow: 'hidden',
