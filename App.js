@@ -1,9 +1,19 @@
 import { CreativeKit, LoginKit } from '@snapchat/snap-kit-react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, Dimensions, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, ScrollView, SafeAreaView, Dimensions, Button, TouchableOpacity, Alert } from 'react-native';
+import { useState } from 'react';
 
 import exampleImage from './assets/Photos/Soup.jpg'
 const exampleImageUri = Image.resolveAssetSource(exampleImage).uri;
+
+import exampleSticker from './assets/Photos/Chef.jpg'
+const exampleStickerUri = Image.resolveAssetSource(exampleSticker).uri;
+
+import exampleImage2 from './assets/Photos/stock.jpg'
+const exampleImageUri2 = Image.resolveAssetSource(exampleImage2).uri;
+
+import exampleSticker2 from './assets/Photos/Cold.jpg'
+const exampleStickerUri2 = Image.resolveAssetSource(exampleSticker2).uri;
 
 import RNFetchBlob from 'rn-fetch-blob';
 /*
@@ -34,41 +44,57 @@ const isValidHttpUrl = (url) => {
     return false;
   }
 
-  return url.startsWith('https:') || url.startsWith('http:');
+  return url.startsWith('https:') || url.startsWith('http:') || true;
 };
 
 export default function App() {
-  const sharePicture = (url) => {
+  const [caption, setCaption] = useState('');
+  const [caption1, setCaption1] = useState('');
+  const [caption2, setCaption2] = useState('');
+  const [caption3, setCaption3] = useState('');
+  const [caption4, setCaption4] = useState('');
+
+  const sharePicture = (url, stickerUrl) => {
     //LoginKit.login();
     CreativeKit.sharePhoto({
       content: {
         uri: url,
       },
       sticker: {
-        uri: url,
-        width: 300,
-        height: 300,
-        posX: 0.5,
-        posY: 0.6,
+        uri: stickerUrl,
+        width: 200,
+        height: 200,
+        posX: 0.2,
+        posY: 0.7,
         rotationDegreesInClockwise: 0,
         isAnimated: false,
      },
-      caption: "This is an example caption",
+      caption: caption,
     })
     /*.catch((error) => {
       Alert.alert(error);
     })*/;
   };
 
-  const sharePictureCheck = (url) => {
+  const sharePictureCheck = (url, stickerUrl) => {
     if (isValidHttpUrl(url)) {
       RNFetchBlob.config({
         fileCache: true,
       })
       .fetch('GET', url)
       .then((res) => {
-        //doAlert(res.data);
-        sharePicture(`file://${res.data}`);
+        if (isValidHttpUrl(stickerUrl)) {
+          RNFetchBlob.config( {
+            fileCache: true,
+          })
+          .fetch('GET', stickerUrl)
+          .then((stickerRes) => {
+            sharePicture(`file://${res.data}`, `file://${stickerRes.data}`);
+          });
+        }
+        else {
+          sharePicture(`file://${res.data}`, "");
+        }
       });
     }
   };
@@ -92,46 +118,51 @@ export default function App() {
       <Text style={styles.titleText}>Snapchat Application</Text>
       <ScrollView ref={(scrollView) => {this.scrollView=scrollView}} style={styles.scrollView} horizontal={true} decelerationRate={0} snapToInterval={width-50} snapToAlignment={"center"} contentInset={{top: -50, left:30, bottom: -50, right: 30}}>
         <View style={styles.box}>
-          <Image style={styles.images} source={{uri: 'https://drive.google.com/uc?export=view&id=1E6Un4ZLSfvUedhPGR0h_EzGzLmL-RnlW'}}></Image>
+          <Image style={styles.images} source={{uri: exampleImageUri}}></Image>
+          <TextInput style={styles.captionInput} placeholder='Add Caption Here' defaultValue={caption} onChangeText={newCaption => setCaption(newCaption)}></TextInput>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://drive.google.com/uc?export=view&id=1E6Un4ZLSfvUedhPGR0h_EzGzLmL-RnlW');
+            sharePictureCheck(exampleImageUri, exampleStickerUri);
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
-          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <Image style={styles.images} source={{uri: exampleImageUri2}}></Image>
+          <TextInput style={styles.captionInput} placeholder='Add Caption Here' defaultValue={caption1} onChangeText={newCaption => setCaption1(newCaption)}></TextInput>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
+            sharePictureCheck(exampleImageUri2, exampleStickerUri2);
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
-          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <Image style={styles.images} source={{uri: exampleImageUri}}></Image>
+          <TextInput style={styles.captionInput} placeholder='Add Caption Here' defaultValue={caption2} onChangeText={newCaption => setCaption2(newCaption)}></TextInput>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
+            sharePictureCheck(exampleImageUri, exampleStickerUri);
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
-          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <Image style={styles.images} source={{uri: exampleImageUri}}></Image>
+          <TextInput style={styles.captionInput} placeholder='Add Caption Here' defaultValue={caption3} onChangeText={newCaption => setCaption3(newCaption)}></TextInput>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
+            sharePictureCheck(exampleImageUri, exampleStickerUri);
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.box}>
-          <Image style={styles.images} source={require('./assets/Photos/Soup.jpg')}></Image>
+          <Image style={styles.images} source={{uri: exampleImageUri}}></Image>
+          <TextInput style={styles.captionInput} placeholder='Add Caption Here' defaultValue={caption4} onChangeText={newCaption => setCaption4(newCaption)}></TextInput>
           <TouchableOpacity style={styles.button} onPress={() =>
           { 
-            sharePictureCheck('https://i.imgur.com/tkDnkwb.jpg');
+            sharePictureCheck(exampleImageUri, exampleStickerUri);
           }}>
             <Text style={styles.buttonText}>Share</Text>
           </TouchableOpacity>
@@ -167,6 +198,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
   },
   images: {
+    marginTop: 20,
     flex: 5,
     width: '90%',
     resizeMode: 'contain',
@@ -174,7 +206,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   box: {
-    marginTop: 140,
+    marginTop: 60,
     backgroundColor: '#3C4E7A',
     width: width - 80,
     margin: 15,
@@ -200,5 +232,11 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: 'black',
-  }
+  },
+  captionInput: {
+    marginBottom: 20,
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 30,
+  },
 });
